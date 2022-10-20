@@ -1,26 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import { ThemeProvider } from "@mui/material";
+import CssBaseline from "@mui/material/CssBaseline";
+
+import DashLayout from "./components/layout/dash-layout";
+
+import Character from "./features/characters/character";
+import CharactersList from "./features/characters/characters-list";
+import EpisodesList from "./features/episodes/episodes-list";
+import LocationsList from "./features/locations/locations-list";
+import Welcome from "./components/layout/welcome";
+import { theme } from "./theme";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	return (
+		<ThemeProvider theme={theme}>
+			<CssBaseline />
+			<Routes>
+				<Route path='/' element={<DashLayout />}>
+					<Route index element={<Welcome />} />
+					<Route path='characters' element={<CharactersList />} />
+					<Route path='characters/:charId' element={<Character />} />
+					<Route path='locations' element={<LocationsList />} />
+					<Route path='episodes' element={<EpisodesList />} />
+				</Route>
+			</Routes>
+		</ThemeProvider>
+	);
 }
 
 export default App;
